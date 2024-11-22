@@ -1,0 +1,112 @@
+/* Estilos para el contenido */
+
+.content {
+    font-family: 'Overpass', sans-serif;
+    font-weight: normal;
+    font-size: 100%;
+    color: #FFFFFF;
+    margin: 0;
+    background-color: #1b262c;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    max-width: 320px;
+    width: 100%;
+}
+
+.title {
+    font-size: 250%;
+    color: #ffa500;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section {
+    width: 100%;
+    padding: 50px 30px;
+    background-color: #0f4c75;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.section input {
+    font-family: 'Overpass', sans-serif;
+    font-size: 110%;
+    color: #333;
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 5px 5px 5px 10px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 3px;
+}
+
+.section input::placeholder {
+    font-family: 'Overpass', sans-serif;
+    color: #E4E4E4;
+}
+
+.section button {
+    font-family: 'Overpass', sans-serif;
+    font-size: 110%;
+    color: #FFFFFF;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ffa500;
+    margin-top: 10px;
+}
+
+.section button:hover {
+    background-color: #FF8C00;
+}
+
+.footer {
+    font-size: 90%;
+    text-align: center;    
+    margin-top: 15px;
+}
+
+.footer a {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-bottom: 3px;
+}
+
+.footer a:hover {
+    color: #ffa500;
+}
+
+.bottom {
+    margin-top: 10px;
+    font-size: 90%;
+    text-align: center;
+}
+
+.bottom a {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-bottom: 3px;
+}
+
+.bottom a:hover {
+    color: #FFA500;
+}
