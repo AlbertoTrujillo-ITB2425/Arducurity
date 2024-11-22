@@ -42,3 +42,6 @@ The key features of the project include:
    ```bash
    git clone https://github.com/yourusername/arducurity.git
    cd arducurity
+
+You can find more details and documentation about the project in the following Google document.
+https://docs.google.com/document/d/1zVTwR07hz-5LD7vyWV4GNlyafsIKMrvVw0i6fZM8YMI/edit?tab=t.0#heading=h.jn0peoib7x6
