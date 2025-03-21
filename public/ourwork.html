@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Works - Arducurity</title>
+    <link rel="icon" type="image/x-icon" href="../assets/fotos/logo.png"> <!-- Favicon -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <!-- Tailwind CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- jQuery -->
+</head>
+<body class="bg-black text-white">
+
+<!-- Header -->
+<header class="flex items-center p-4 bg-black text-orange-500">
+    <!-- Logo alineado a la izquierda -->
+    <div class="flex items-center space-x-4">
+        <img src="../assets/fotos/logo.png" alt="Arducurity Logo" class="h-24">
+    </div>
+
+    <!-- Título centrado -->
+    <div class="flex-1 text-center">
+        <h1 class="text-2xl font-bold text-orange-500">Works - Arducurity</h1>
+        <p class="text-sm text-gray-300">Our works and tests carried out</p>
+    </div>
+
+    <!-- Iconos de redes sociales a la derecha -->
+    <div class="flex space-x-4">
+        <a href="https://www.facebook.com/arducurity" class="text-orange-500 hover:text-orange-400"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/arducurity" class="text-orange-500 hover:text-orange-400"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/arducurity" class="text-orange-500 hover:text-orange-400"><i class="fab fa-instagram"></i></a>
+    </div>
+</header>
+
+<!-- Google Translate -->
+<div id="google_translate_element" class="absolute top-0 right-0 p-2"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- Navigation Bar -->
+<nav class="bg-black text-orange-500">
+    <ul class="flex space-x-6 p-4 justify-center">
+        <li><a href="index.html" class="text-white hover:bg-orange-600 p-2 rounded">Home</a></li>
+        <li><a href="aboutus.html" class="text-white hover:bg-orange-600 p-2 rounded">About Us</a></li>
+        <li><a href="services.html" class="text-white hover:bg-orange-600 p-2 rounded">Services</a></li>
+        <li><a href="ourwork.html" class="text-white hover:bg-orange-600 p-2 rounded">Works</a></li>
+        <li><a href="contact.html" class="text-white hover:bg-orange-600 p-2 rounded">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="page-container mt-8">
+
+    <!-- Videos Section -->
+    <h1 class="text-2xl font-semibold text-center text-orange-500 mb-4">Videos</h1>
+    <p class="text-center text-gray-300 mb-8">Here you can find all our works and tests.</p>
+
+    <!-- Video Grid (centrado) -->
+    <div class="flex justify-center space-x-4 overflow-x-auto pb-4">
+        <video src="../assets/videos/video1.mp4" class="w-64 h-auto rounded-lg shadow-lg border border-orange-500" controls></video>
+        <video src="../assets/videos/video2.mp4" class="w-64 h-auto rounded-lg shadow-lg border border-orange-500" controls></video>
+        <video src="../assets/videos/video4.mp4" class="w-64 h-auto rounded-lg shadow-lg border border-orange-500" controls></video>
+        <video src="../assets/videos/video5.mp4" class="w-64 h-auto rounded-lg shadow-lg border border-orange-500" controls></video>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white p-6 text-center mt-8">
+        <p>&copy; 2024 Arducurity. All rights reserved.</p>
+    </footer>
+</div>
+
+</body>
+</html>

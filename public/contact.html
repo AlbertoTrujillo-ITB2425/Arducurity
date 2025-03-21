@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Arducurity</title>
+    <link rel="icon" type="image/x-icon" href="../assets/fotos/logo.png"> <!-- Favicon -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- FontAwesome para iconos -->
+</head>
+
+<body class="bg-black text-white">
+    <!-- Header -->
+    <header class="flex items-center justify-between p-4 bg-black text-orange-500">
+        <img src="../assets/fotos/logo.png" alt="Arducurity Logo" class="h-24">
+        <div class="text-center">
+            <h1 class="text-2xl font-bold">Contact Us - Arducurity</h1>
+            <p class="text-sm text-gray-300">Get in Touch</p>
+        </div>
+        <div class="flex space-x-4">
+            <a href="https://www.facebook.com/arducurity" class="hover:text-orange-400"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/arducurity" class="hover:text-orange-400"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/arducurity" class="hover:text-orange-400"><i class="fab fa-instagram"></i></a>
+        </div>
+    </header>
+
+    <!-- Google Translate Widget -->
+    <div id="google_translate_element" class="absolute top-0 right-0 p-2"></div>
+
+    <!-- Navigation -->
+    <nav class="bg-black text-orange-500">
+        <ul class="flex justify-center space-x-6 p-4">
+            <li><a href="index.html" class="text-white hover:bg-orange-600 p-2 rounded">Home</a></li>
+            <li><a href="aboutus.html" class="text-white hover:bg-orange-600 p-2 rounded">About Us</a></li>
+            <li><a href="services.html" class="text-white hover:bg-orange-600 p-2 rounded">Services</a></li>
+            <li><a href="ourwork.html" class="text-white hover:bg-orange-600 p-2 rounded">Works</a></li>
+            <li><a href="contact.html" class="text-white hover:bg-orange-600 p-2 rounded">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contact Information -->
+    <div class="flex justify-center py-12">
+        <div class="max-w-3xl w-full bg-orange-500 p-6 rounded-lg shadow-lg text-white">
+            <h2 class="text-2xl font-bold mb-4">Contact Information</h2>
+            <table class="w-full text-left">
+                <tr>
+                    <td class="py-2">Email:</td>
+                    <td class="py-2">support@arducurity.info</td>
+                </tr>
+                <tr>
+                    <td class="py-2">Phone:</td>
+                    <td class="py-2">213-932-3333</td>
+                </tr>
+                <tr>
+                    <td class="py-2">Address:</td>
+                    <td class="py-2">640 E California Ave, Bakersfield, United States of America</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Google Map -->
+    <div class="flex justify-center py-12">
+        <iframe width="520" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+            src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=640%20E%20California%20Ave,%20Bakersfield,%20United%20States%20of%20America%20Barkersfield+(Arducurity%20Location)&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-orange-500 text-center py-4">
+        <p>&copy; 2024 Arducurity. All rights reserved.</p>
+    </footer>
+
+    <!-- Script for Form Handling -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#contact-form").on("submit", function (event) {
+            event.preventDefault(); // Prevent page reload
+            var formData = $(this).serialize(); // Serialize form data
+
+            $.ajax({
+                url: "process_contact.php", // The PHP file to handle the form
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    alert("Thank you for your message!"); // Success message
+                    $("#contact-form")[0].reset(); // Reset the form
+                },
+                error: function () {
+                    alert("An error occurred. Please try again."); // Error message
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
