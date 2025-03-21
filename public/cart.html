@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart - Arducurity</title>
+    <link rel="icon" type="image/x-icon" href="../assets/fotos/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.8/build/js/intlTelInput.min.js"></script> <!-- For phone input formatting -->
+</head>
+<body class="bg-black text-white">
+
+    <div class="content-wrapper p-8">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl text-orange-500">Your Shopping Cart</h2>
+            <p class="text-gray-300">Review the products in your cart before proceeding to payment.</p>
+        </div>
+
+        <!-- Back to Products Button -->
+        <div class="mb-8">
+            <a href="services.html" class="inline-block text-orange-500 text-lg border-b-2 border-orange-500 hover:text-white hover:border-white">Back to Products</a>
+        </div>
+
+        <!-- Cart Items Section -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg" id="cart-items">
+            <!-- Cart items will be dynamically populated here -->
+        </div>
+
+        <!-- Cart Total -->
+        <div class="flex items-center justify-between mt-8">
+            <p class="text-gray-300 text-lg">Total:</p>
+            <p class="text-orange-500 text-xl" id="cart-total"><strong>0.00€</strong></p>
+        </div>
+
+        <!-- Payment Information Form -->
+        <div class="mt-8">
+            <h3 class="text-xl text-orange-500">Payment Information</h3>
+            <form id="payment-form" action="#" method="POST" class="mt-4">
+
+                <!-- Select Payment Method -->
+                <label for="payment-method" class="text-gray-300">Select Payment Method:</label>
+                <select id="payment-method" name="payment-method" class="w-full p-3 mt-2 rounded-md text-gray-800" required onchange="togglePaymentMethod()">
+                    <option value="credit-card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="stripe">Stripe</option>
+                </select>
+
+                <!-- Credit Card Form (Visible if Credit Card is selected) -->
+                <div id="credit-card-form" class="mt-6">
+                    <div>
+                        <label for="card-number" class="text-gray-300">Card Number:</label>
+                        <input type="text" id="card-number" name="card-number" class="w-full p-3 mt-2 rounded-md" placeholder="Enter card number" required oninput="detectCardType()">
+                    </div>
+                    <div class="mt-4 flex space-x-4">
+                        <div class="flex-1">
+                            <label for="expiry-date" class="text-gray-300">Expiry Date:</label>
+                            <input type="text" id="expiry-date" name="expiry-date" class="w-full p-3 mt-2 rounded-md" placeholder="MM/YY" required>
+                        </div>
+                        <div class="flex-1">
+                            <label for="cvv" class="text-gray-300">CVV:</label>
+                            <input type="text" id="cvv" name="cvv" class="w-full p-3 mt-2 rounded-md" placeholder="Enter CVV" required>
+                        </div>
+                    </div>
+                    <!-- Card Type Icon -->
+                    <div class="mt-2" id="card-type-icon">
+                        <!-- Icon will be displayed here (Visa, MasterCard, etc.) -->
+                    </div>
+                </div>
+
+                <!-- PayPal Form (Visible if PayPal is selected) -->
+                <div id="paypal-form" class="mt-6 hidden">
+                    <p class="text-gray-300">You will be redirected to PayPal for payment.</p>
+                </div>
+
+                <!-- Stripe Form (Visible if Stripe is selected) -->
+                <div id="stripe-form" class="mt-6 hidden">
+                    <p class="text-gray-300">Stripe payment form will be here.</p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="bg-orange-500 text-white py-2 px-6 rounded mt-6 hover:bg-orange-600 w-full">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Function to get URL parameters (for cart item)
+        function getUrlParams() {
+            let params = {};
+            const url = window.location.href;
+            const urlParams = new URLSearchParams(window.location.search);
+            params.product = urlParams.get('product');
+            params.price = parseFloat(urlParams.get('price'));
+            params.img = urlParams.get('img'); // Get product image
+            return params;
+        }
+
+        // Adding the product to the cart
+        const productData = getUrlParams();
+        if (productData.product && productData.price && productData.img) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const productIndex = cart.findIndex(item => item.name === productData.product);
+            if (productIndex !== -1) {
+                cart[productIndex].quantity++;  // Increase quantity if product exists
+            } else {
+                cart.push({ name: productData.product, price: productData.price, quantity: 1, img: productData.img });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${productData.product} has been added to your cart.`);
+        }
+
+        // Display cart items
+        function displayCartItems() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+            let total = 0;
+            cartItemsContainer.innerHTML = '';
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item flex justify-between items-center bg-gray-700 p-4 rounded-lg mb-4">
+                        <img src="${item.img}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1 ml-4">
+                            <h4 class="text-orange-500">${item.name}</h4>
+                            <p class="text-gray-300">Price: ${item.price.toFixed(2)}€</p>
+                            <div class="flex items-center space-x-4 mt-2">
+                                <button class="decrease-quantity text-orange-500" data-product="${item.name}">-</button>
+                                <span class="text-white">${item.quantity}</span>
+                                <button class="increase-quantity text-orange-500" data-product="${item.name}">+</button>
+                                <button class="remove-item text-red-500" data-product="${item.name}">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total').innerHTML = `${total.toFixed(2)}€`;
+        }
+
+        // Payment method toggle logic
+        function togglePaymentMethod() {
+            const method = document.getElementById('payment-method').value;
+            document.getElementById('credit-card-form').style.display = (method === 'credit-card') ? 'block' : 'none';
+            document.getElementById('paypal-form').style.display = (method === 'paypal') ? 'block' : 'none';
+            document.getElementById('stripe-form').style.display = (method === 'stripe') ? 'block' : 'none';
+        }
+
+        // Card type detection (Visa, MasterCard, etc.)
+        function detectCardType() {
+            const cardNumber = document.getElementById('card-number').value;
+            const regex = {
+                visa: /^4/,
+                mastercard: /^5/,
+                amex: /^3[47]/,
+            };
+            let cardType = '';
+            if (regex.visa.test(cardNumber)) {
+                cardType = 'Visa';
+            } else if (regex.mastercard.test(cardNumber)) {
+                cardType = 'MasterCard';
+            } else if (regex.amex.test(cardNumber)) {
+                cardType = 'American Express';
+            }
+
+            const icon = document.getElementById('card-type-icon');
+            if (cardType) {
+                icon.innerHTML = `<img src="../assets/fotos/pay/${cardType.toLowerCase()}.png" alt="${cardType} logo" class="h-8 mt-2">`;
+            } else {
+                icon.innerHTML = '';
+            }
+        }
+
+        // Initialize the page
+        displayCartItems();
+        togglePaymentMethod();
+    </script>
+</body>
+</html>
