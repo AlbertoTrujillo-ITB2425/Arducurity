@@ -44,6 +44,7 @@
                     <option value="credit-card">Credit Card</option>
                     <option value="paypal">PayPal</option>
                     <option value="stripe">Stripe</option>
+                    <option value="crypto">Cryptocurrency (BTC, XRP, SOL)</option>
                 </select>
 
                 <!-- Credit Card Form (Visible if Credit Card is selected) -->
@@ -78,6 +79,21 @@
                     <p class="text-gray-300">Stripe payment form will be here.</p>
                 </div>
 
+                <!-- Cryptocurrency Form (Visible if Cryptocurrency is selected) -->
+                <div id="crypto-form" class="mt-6 hidden">
+                    <h4 class="text-orange-500">Cryptocurrency Payment Instructions</h4>
+                    <p class="text-gray-300">Select a cryptocurrency to pay with:</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button type="button" class="crypto-btn bg-blue-500 text-white p-4 rounded-md w-full" onclick="generateCryptoAddress('BTC')">Pay with Bitcoin (BTC)</button>
+                        <button type="button" class="crypto-btn bg-purple-500 text-white p-4 rounded-md w-full" onclick="generateCryptoAddress('XRP')">Pay with XRP</button>
+                        <button type="button" class="crypto-btn bg-yellow-500 text-white p-4 rounded-md w-full" onclick="generateCryptoAddress('SOL')">Pay with Solana (SOL)</button>
+                    </div>
+                    <div id="crypto-address" class="mt-6 hidden">
+                        <p class="text-gray-300">Send your payment to the following address:</p>
+                        <input type="text" id="crypto-address-field" class="w-full p-3 mt-2 rounded-md text-gray-800" readonly>
+                    </div>
+                </div>
+
                 <!-- Submit Button -->
                 <button type="submit" class="bg-orange-500 text-white py-2 px-6 rounded mt-6 hover:bg-orange-600 w-full">Proceed to Payment</button>
             </form>
@@ -88,7 +104,6 @@
         <p>&copy; 2024 Arducurity. All rights reserved.</p>
         <p><a href="https://docs.google.com/document/d/1zVTwR07hz-5LD7vyWV4GNlyafsIKMrvVw0i6fZM8YMI/edit?usp=sharing" target="_blank" class="text-orange-500 hover:text-orange-400">View Project Documentation</a></p>
     </footer>
-
 
     <script>
         // Function to get URL parameters (for cart item)
@@ -143,37 +158,65 @@
             document.getElementById('cart-total').innerHTML = `${total.toFixed(2)}€`;
         }
 
+        // Dynamic update of cart quantities
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('increase-quantity')) {
+                const productName = e.target.dataset.product;
+                updateCartQuantity(productName, 1);
+            }
+            if (e.target.classList.contains('decrease-quantity')) {
+                const productName = e.target.dataset.product;
+                updateCartQuantity(productName, -1);
+            }
+            if (e.target.classList.contains('remove-item')) {
+                const productName = e.target.dataset.product;
+                removeItemFromCart(productName);
+            }
+        });
+
+        function updateCartQuantity(productName, quantity) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const itemIndex = cart.findIndex(item => item.name === productName);
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity += quantity;
+                if (cart[itemIndex].quantity <= 0) cart.splice(itemIndex, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+        }
+
+        function removeItemFromCart(productName) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.name !== productName);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+        }
+
         // Payment method toggle logic
         function togglePaymentMethod() {
             const method = document.getElementById('payment-method').value;
             document.getElementById('credit-card-form').style.display = (method === 'credit-card') ? 'block' : 'none';
             document.getElementById('paypal-form').style.display = (method === 'paypal') ? 'block' : 'none';
             document.getElementById('stripe-form').style.display = (method === 'stripe') ? 'block' : 'none';
+            document.getElementById('crypto-form').style.display = (method === 'crypto') ? 'block' : 'none';
         }
 
-        // Card type detection (Visa, MasterCard, etc.)
-        function detectCardType() {
-            const cardNumber = document.getElementById('card-number').value;
-            const regex = {
-                visa: /^4/,
-                mastercard: /^5/,
-                amex: /^3[47]/,
-            };
-            let cardType = '';
-            if (regex.visa.test(cardNumber)) {
-                cardType = 'Visa';
-            } else if (regex.mastercard.test(cardNumber)) {
-                cardType = 'MasterCard';
-            } else if (regex.amex.test(cardNumber)) {
-                cardType = 'American Express';
+        // Generate cryptocurrency address
+        function generateCryptoAddress(cryptoType) {
+            let address = '';
+            switch (cryptoType) {
+                case 'BTC':
+                    address = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'; // Example Bitcoin address
+                    break;
+                case 'XRP':
+                    address = 'rUdf7kghTTTjX9YnHbmn5c2rD6QTLyDbdy'; // Example XRP address
+                    break;
+                case 'SOL':
+                    address = '5QUQyH6DJmFvx4wZghE1A9bb2QK7r2LJFEAQWxRyzb4Q'; // Example Solana address
+                    break;
             }
-
-            const icon = document.getElementById('card-type-icon');
-            if (cardType) {
-                icon.innerHTML = `<img src="/assets/fotos/pay/${cardType.toLowerCase()}.png" alt="${cardType} logo" class="h-8 mt-2">`;
-            } else {
-                icon.innerHTML = '';
-            }
+            document.getElementById('crypto-address-field').value = address;
+            document.getElementById('crypto-address').style.display = 'block';
         }
 
         // Initialize the page

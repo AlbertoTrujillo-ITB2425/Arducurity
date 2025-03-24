@@ -12,40 +12,29 @@
 <body class="bg-black text-white">
 
 <!-- Header -->
-<header class="flex items-center p-4 bg-black text-orange-500">
+<header class="flex items-center p-4 bg-black text-orange-500 flex-col sm:flex-row sm:justify-between">
     <!-- Logo alineado a la izquierda -->
-    <div class="flex items-center space-x-4">
+    <div class="flex items-center space-x-4 mb-4 sm:mb-0">
         <img src="/assets/fotos/logo.png" alt="Arducurity Logo" class="h-24">
     </div>
 
     <!-- Título centrado -->
-    <div class="flex-1 text-center">
+    <div class="text-center sm:text-left">
         <h1 class="text-2xl font-bold text-orange-500">About Us - Arducurity</h1>
         <p class="text-sm text-gray-300">Our mission and values</p>
     </div>
 
     <!-- Iconos de redes sociales a la derecha -->
-    <div class="flex space-x-4">
+    <div class="flex space-x-4 mt-4 sm:mt-0">
         <a href="https://www.facebook.com/arducurity" class="text-orange-500 hover:text-orange-400"><i class="fab fa-facebook-f"></i></a>
         <a href="https://twitter.com/arducurity" class="text-orange-500 hover:text-orange-400"><i class="fab fa-twitter"></i></a>
         <a href="https://www.instagram.com/arducurity" class="text-orange-500 hover:text-orange-400"><i class="fab fa-instagram"></i></a>
     </div>
 </header>
 
-<!-- Google Translate -->
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-    }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<!-- Contenedor de traducción -->
-<div id="google_translate_element" class="absolute top-0 right-5 p-3"></div>
-
 <!-- Navigation Bar -->
 <nav class="bg-black text-orange-500">
-    <ul class="flex justify-center space-x-6 p-4">
+    <ul class="flex flex-wrap justify-center space-x-6 p-4">
         <li><a href="index.html" class="text-white hover:bg-orange-600 p-2 rounded">Home</a></li>
         <li><a href="aboutus.html" class="text-white hover:bg-orange-600 p-2 rounded">About Us</a></li>
         <li><a href="services.html" class="text-white hover:bg-orange-600 p-2 rounded">Services</a></li>
@@ -84,12 +73,11 @@
     </div>
 </div>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white p-6 text-center">
-        <p>&copy; 2024 Arducurity. All rights reserved.</p>
-        <p><a href="https://docs.google.com/document/d/1zVTwR07hz-5LD7vyWV4GNlyafsIKMrvVw0i6fZM8YMI/edit?usp=sharing" target="_blank" class="text-orange-500 hover:text-orange-400">View Project Documentation</a></p>
-    </footer>
-
+<!-- Footer -->
+<footer class="bg-black text-white p-6 text-center">
+    <p>&copy; 2024 Arducurity. All rights reserved.</p>
+    <p><a href="https://docs.google.com/document/d/1zVTwR07hz-5LD7vyWV4GNlyafsIKMrvVw0i6fZM8YMI/edit?usp=sharing" target="_blank" class="text-orange-500 hover:text-orange-400">View Project Documentation</a></p>
+</footer>
 
 </body>
 </html>
